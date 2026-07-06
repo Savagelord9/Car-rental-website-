@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Car, Calendar, Shield, CreditCard, ChevronRight, CheckCircle, Camera, Smartphone, MapPin, AlertCircle, Star } from 'lucide-react';
+import { Car, Calendar, Shield, CreditCard, ChevronRight, CheckCircle, Camera, Smartphone, AlertCircle, Star } from 'lucide-react';
 
-// 10 High-Quality Professional Fleet Vehicles with Real Image URLs
+// 10 Premium Fleet Vehicles with Professional, Exact Photography
 const CAR_FLEET = [
   { id: 1, name: 'Tesla Model 3', type: 'Electric', price: 85, range: '350 mi range', feature: 'Autopilot Enhanced', rating: 4.9, image: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=600&q=80' },
   { id: 2, name: 'Toyota RAV4 Hybrid', type: 'Hybrid', price: 65, range: '580 mi total', feature: 'AWD All-Weather', rating: 4.8, image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=600&q=80' },
@@ -37,6 +37,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+      {/* Navbar Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl text-blue-600">
@@ -51,14 +52,15 @@ export default function App() {
         </div>
       </header>
 
+      {/* Main Framework */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         {activeTab === 'browse' && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Fleet List Container */}
+            {/* Left Column: 10 Grid Car Cards */}
             <div className="lg:col-span-2 space-y-6">
               <div>
                 <h2 className="text-2xl font-bold tracking-tight">Verified Premium Fleet</h2>
-                <p className="text-slate-500 text-sm mt-1">Guaranteed models with a 2-hour sanitation safety window.</p>
+                <p className="text-slate-500 text-sm mt-1">Select a vehicle card to instantly customize your rental package parameters.</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -67,7 +69,7 @@ export default function App() {
                     key={car.id} 
                     onClick={() => setSelectedCar(car)}
                     className={`group rounded-xl border overflow-hidden transition-all cursor-pointer bg-white flex flex-col justify-between ${
-                      selectedCar.id === car.id ? 'border-blue-600 ring-2 ring-blue-100 shadow-md' : 'border-slate-200 hover:border-slate-300 hover:shadow-sm'
+                      selectedCar.id === car.id ? 'border-blue-600 ring-2 ring-blue-100 shadow-md scale-[1.01]' : 'border-slate-200 hover:border-slate-300 hover:shadow-sm'
                     }`}
                   >
                     <div className="relative h-44 w-full bg-slate-100 overflow-hidden">
@@ -92,7 +94,7 @@ export default function App() {
                       </div>
 
                       <div className="pt-3 border-t border-slate-100 flex justify-between items-center">
-                        <span className="text-[11px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Model Tag Verified</span>
+                        <span className="text-[11px] font-medium text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Model Match Confirmed</span>
                         <span className="font-bold text-lg text-slate-900">${car.price}<span className="text-xs font-normal text-slate-500">/day</span></span>
                       </div>
                     </div>
@@ -101,13 +103,14 @@ export default function App() {
               </div>
             </div>
 
-            {/* Sticky Pricing Sidebar */}
+            {/* Right Column: Dynamic Booking Checkout Sidebar */}
             <div className="lg:col-span-1">
               <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6 sticky top-24">
-                <h3 className="font-bold text-lg flex items-center gap-2 border-b border-slate-100 pb-3">
-                  <CreditCard className="w-5 h-5 text-blue-600" />
-                  <span>Transparent Summary</span>
-                </h3>
+                <div className="border-b border-slate-100 pb-4">
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-600">Active Selection</span>
+                  <h3 className="font-bold text-xl text-slate-900 mt-0.5">{selectedCar.name}</h3>
+                  <p className="text-xs text-slate-400 mt-0.5">{selectedCar.type} Choice • {selectedCar.feature}</p>
+                </div>
 
                 <div className="space-y-2">
                   <label className="text-xs font-semibold text-slate-500">Rental Duration</label>
@@ -127,13 +130,14 @@ export default function App() {
                 </div>
 
                 <div className="space-y-2 text-sm text-slate-600 border-t border-dashed border-slate-200 pt-4">
-                  <div className="flex justify-between"><span>Selected: {selectedCar.name}</span><span className="font-medium text-slate-900">${basePrice}</span></div>
-                  {insurance && <div className="flex justify-between"><span>Premium Insurance Protection</span><span className="font-medium text-slate-900">${insurancePrice}</span></div>}
-                  <div className="flex justify-between font-bold text-base text-slate-900 border-t border-slate-100 pt-3"><span>Estimated Total</span><span className="text-blue-600">${totalAmount}</span></div>
+                  <div className="flex justify-between"><span>Rate per Day</span><span className="font-medium text-slate-900">${selectedCar.price}</span></div>
+                  <div className="flex justify-between"><span>Base Total ({days} days)</span><span className="font-medium text-slate-900">${basePrice}</span></div>
+                  {insurance && <div className="flex justify-between"><span>Premium Wrapper Insurance</span><span className="font-medium text-slate-900">${insurancePrice}</span></div>}
+                  <div className="flex justify-between font-bold text-base text-slate-900 border-t border-slate-100 pt-3"><span>Estimated Due Total</span><span className="text-blue-600">${totalAmount}</span></div>
                 </div>
 
-                <button onClick={() => { setActiveTab('damage-scan'); window.scrollTo(0,0); }} className="w-full bg-blue-600 text-white font-medium py-2.5 rounded-lg text-sm flex items-center justify-center gap-1 hover:bg-blue-700 transition-colors shadow-sm shadow-blue-100">
-                  <span>Confirm Fleet Reservation</span>
+                <button onClick={() => { setActiveTab('damage-scan'); window.scrollTo(0,0); }} className="w-full bg-blue-600 text-white font-medium py-3 rounded-lg text-sm flex items-center justify-center gap-1 hover:bg-blue-700 transition-colors shadow-md shadow-blue-100">
+                  <span>Book {selectedCar.name} Now</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
@@ -197,4 +201,5 @@ export default function App() {
       </main>
     </div>
   );
-                                                                                                                                                                   }
+                      }
+            
